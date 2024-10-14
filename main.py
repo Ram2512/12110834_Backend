@@ -66,13 +66,3 @@ async def bulk_delete_tasks(bulk_delete: TaskBulkDelete):
     ids_to_delete = [ObjectId(task_id) for task_id in bulk_delete.tasks]
     result = await task_collection.delete_many({"_id": {"$in": ids_to_delete}})
     return
-# @app.delete("/v1/tasks/bulk", response_model=dict)
-# async def bulk_delete_tasks(task_input: TaskBulkDelete):
-#     deleted_count = 0
-#     for task in task_input.tasks:
-#         result = await task_collection.delete_one({"_id": ObjectId(task.id)})
-#         if result.deleted_count == 1:
-#             deleted_count += 1
-#     if deleted_count == 0:
-#         raise HTTPException(status_code=404, detail="No tasks deleted")
-#     return {"deleted_count": deleted_count}
